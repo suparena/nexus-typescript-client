@@ -10,3 +10,10 @@ dist/
 
 # OS-specific
 .DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Test coverage
+coverage/
