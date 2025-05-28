@@ -71,7 +71,17 @@ SOFTWARE.
 </file>
 
 <file name=README.md># nexus-typescript-client
-Nexus client in typescript
+
+A lightweight and secure TypeScript client for sending events to a Nexus event pipeline endpoint.
+
+## Features
+
+- 🚀 Lightweight with zero dependencies
+- 📦 Full TypeScript support with type definitions
+- 🔄 Support for single and batch event sending
+- 🔌 Custom fetch implementation support
+- 🛡️ Built-in error handling and validation
+- 🌐 Compatible with Node.js, browsers, and edge runtimes (Cloudflare Workers)
 
 ## Installation
 
@@ -81,16 +91,111 @@ npm install nexus-typescript-client
 
 ## Usage
 
-```ts
+### Basic Usage
+
+```typescript
 import { NexusClient } from 'nexus-typescript-client';
 
+// Initialize the client
 const client = new NexusClient({
-  url: 'https://example.endpoint.dev/api',
-  token: 'your-token'
+  url: 'https://your-nexus-endpoint.com/api',
+  token: 'your-api-token'
 });
 
-await client.send({ type: 'event.name', data: 'example' });
+// Send a single event
+await client.send({
+  type: 'user.signup',
+  userId: '12345',
+  email: 'user@example.com',
+  timestamp: new Date().toISOString()
+});
 ```
+
+### Batch Events
+
+```typescript
+// Send multiple events at once
+await client.send([
+  { type: 'page.view', path: '/home', sessionId: 'abc123' },
+  { type: 'button.click', element: 'cta-signup', sessionId: 'abc123' },
+  { type: 'form.submit', formId: 'newsletter', sessionId: 'abc123' }
+]);
+```
+
+### Custom Fetch Implementation
+
+```typescript
+// Use a custom fetch implementation (e.g., for Node.js < 18)
+import fetch from 'node-fetch';
+
+const client = new NexusClient({
+  url: 'https://your-nexus-endpoint.com/api',
+  token: 'your-api-token',
+  fetch: fetch as any
+});
+```
+
+### Error Handling
+
+```typescript
+try {
+  await client.send({ type: 'event.type', data: 'value' });
+} catch (error) {
+  console.error('Failed to send event:', error.message);
+  // Error includes status code and response body for debugging
+}
+```
+
+## API Reference
+
+### `NexusClient`
+
+#### Constructor Options
+
+```typescript
+interface NexusClientOptions {
+  url: string;      // The Nexus endpoint URL
+  token: string;    // Bearer token for authentication
+  fetch?: typeof fetch; // Optional custom fetch implementation
+}
+```
+
+#### Methods
+
+##### `send(events: NexusEvent | NexusEvent[]): Promise<Response>`
+
+Sends one or more events to the Nexus endpoint.
+
+- **Parameters:**
+  - `events`: A single event object or an array of events
+- **Returns:** Promise resolving to the fetch Response object
+- **Throws:** Error if the request fails or returns non-2xx status
+
+### `NexusEvent`
+
+```typescript
+interface NexusEvent {
+  type: string;     // Required event type identifier
+  [key: string]: any; // Additional event properties
+}
+```
+
+## Requirements
+
+- Node.js >= 14 (or any environment with fetch API support)
+- TypeScript >= 5.0 (for development)
+
+## License
+
+MIT License - see [LICENSE](./LICENSE) file for details
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Support
+
+For issues and feature requests, please visit the [GitHub repository](https://github.com/suparena/nexus-typescript-client).
 </file>
 
 <file name=tsconfig.json>{
