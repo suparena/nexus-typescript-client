@@ -1,0 +1,12 @@
+# Node dependencies
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# Build artifacts
+*.tsbuildinfo
+
+# OS-specific
+.DS_Store

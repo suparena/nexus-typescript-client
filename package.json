@@ -1,0 +1,32 @@
+{
+  "name": "nexus-typescript-client",
+  "version": "0.1.0",
+  "description": "A lightweight and secure TypeScript client for sending events to a Nexus event pipeline endpoint.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "nexus",
+    "event-client",
+    "typescript",
+    "event-pipeline",
+    "cloudflare"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suparena/nexus-typescript-client"
+  },
+  "author": "Jon Zhu",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
